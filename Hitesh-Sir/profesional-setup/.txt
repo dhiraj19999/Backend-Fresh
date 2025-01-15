@@ -1,0 +1,63 @@
+Multer is a Node.js middleware that allows users to upload files to a server. It's often used with Express
+useful in save file in temp dirctory in disk
+npm i mongoose-aggregate-paginate-v2
+
+for mongodb pipeline
+
+There are three types of schema methods, classified according to their scope:
+
+Methods
+Statics
+Query
+Let’s create a basic user schema first for our example:
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  age: Number,
+  hobbies: [String],
+  createdAt: Date,
+  updatedAt: Date,
+});
+
+module.exports = mongoose.model("User", userSchema);
+In our example, we have created a simple user schema with basic properties, such as name, age, email, hobbies, and two timestamps, createdAt and updatedAt.
+
+Methods
+Methods are instance level functions, and can be used only on an object of schema, and not on the Schema directly. They work as an extension function to the instance, providing additional functionality.
+
+userSchema.methods.greeting = function() {
+  return `Hi. Good morning, ${this.name}`;
+}
+Here, we created a method for our instance by the name, “greeting”. All it does is that it takes “name” property of the instance and prints a greeting.
+
+const user = await User.create({
+  name: "Armaan",
+  age: 25,
+  email: 'abc@xyz.com',
+});
+
+console.log(user.greeting());
+And, it gives the output,
+
+Hi. Good morning, Armaan.
+2. Statics
+
+Statics work on a Schema level, or we can say Class level, and they can be used directly on the schema, rather than the instance. They can be used to create custom and reusable queries.
+
+userSchema.statics.findByAge = function(minAge) {
+  return this.where('age').gt(minAge);
+}
+const usersAbove25 = await User.findByAge(25);
+3. Query
+
+Query is similar to Statics. It is used on the schema level, but the difference is that Query is chained with other queries. It cannot be directly used on the schema.
+
+userSchema.query.findByAge = function(minAge) {
+  return this.where('age').gt(minAge);
+}
+const usersAbove25 = await User.find().findByAge(25);
+In the above example, Query was used on a find() method, unlike Statics which was used directly on the schema.
+
+
+link==https://medium.com/@armaancodes/schema-methods-in-mongodb-mongoose-efd6e6bb9cc8

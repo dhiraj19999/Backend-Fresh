@@ -1,21 +1,13 @@
 
-import express from "express";
+
 import app from "./app.js";
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import e from "express";
+
 
 
 dotenv.config();
-app.use(cors({origin:process.env.CORS_ORIGIN,credentials:true}));
 
-app.use
-(express.json({limit:"17kb",extended:true}));
-app.use(cookieParser());
-app.use(express.urlencoded({extended:true}));
-app.use(express.static("public"));
 
 
 
